@@ -183,8 +183,14 @@ public class TvChannelModel {
         @SerializedName("headers")
         @Expose
         private String headers;
+
+        public Request(String name) {
+            this.name = name;
+        }
+
         @SerializedName("pathVariables")
         @Expose
+
         private List<Object> pathVariables = null;
 
         public String getId() {
