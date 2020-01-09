@@ -2,6 +2,7 @@ package com.sabekur2017.theborakrestassignment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,18 +19,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private RequestRecyclerAdapter requestRecyclerAdapter;
    // private ArrayList<TvChannelModel.Request> requests=new ArrayList<>();
     List<TvChannelModel.Request> requestList;
     private String requestName;
+    private TextView nameTv,url0Tv,url1Tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView=findViewById(R.id.recycler_view);
+        nameTv=findViewById(R.id.chanelName);
+        url0Tv=findViewById(R.id.url_link_1);
+        url1Tv=findViewById(R.id.url_link_2);
         TvApiService tvApiService=new RetrofitApiBuilder().getTvApiService();
 
         String key=String.format("%s",getString(R.string.api_key));
@@ -62,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,"rName1 :"+requestName1);
                     Log.d(TAG,"RuRL0 :"+requestUrl0);
                     Log.d(TAG,"Rurl1 :"+requestUrl1);*/
+
+                    String requestUrl0=tvChannelModel.getRequests().get(0).getUrl();
+                    String requestUrl1=tvChannelModel.getRequests().get(1).getUrl();
+                    nameTv.setText("Name : "+channelName);
+                    url0Tv.setText("Url 1 :"+requestUrl0);
+                    url1Tv.setText("Url 2 :"+requestUrl1);
+
                    TvChannelModel.Request request=new TvChannelModel.Request(requestName);
                     requestList.add(request);
                 }
@@ -81,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
